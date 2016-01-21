@@ -3,16 +3,18 @@ describe('omdb service', function() {
     var movieDataById = {"Title":"Star Wars","Year":"1983","Rated":"N/A","Released":"01 May 1983","Runtime":"N/A","Genre":"Action, Adventure, Sci-Fi","Director":"N/A","Writer":"N/A","Actors":"Harrison Ford, Alec Guinness, Mark Hamill, James Earl Jones","Plot":"N/A","Language":"English","Country":"USA","Awards":"N/A","Poster":"N/A","Metascore":"N/A","imdbRating":"7.8","imdbVotes":"345","imdbID":"tt0251413","Type":"game","Response":"True"}
     var omdbApi = {};
 
+    //this is effectively angular.mock.module('omdb')
+    // and angular.mock.inject(...) below
+    //ngMock makes module() and inject() available on the window object
+    // so angular.mock is optional
     beforeEach(
-        angular.mock
-            .module('omdb')
+        module('omdb')
     );
 
     beforeEach(
-        angular.mock
-            .inject(function(_OmdbSvc_) {
-                omdbApi = _OmdbSvc_;
-            })
+        inject(function(_OmdbSvc_) {
+            omdbApi = _OmdbSvc_;
+        })
     );
 
     it('should return movie search data', function() {
