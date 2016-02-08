@@ -24,42 +24,86 @@ describe('omdb service', function() {
         })
     );
 
-    it('should return movie search data', function() {
-        //anonymous object pattern
-        // angular
-        //     .mock
-        //     .module({
-        //         'omdbApi' : {
-        //             search: function(query) {
-        //                 return movieData;
-        //             }
-        //         }
-        //     });
+    // it('should return movie search data', function() {
+    //     //anonymous object pattern
+    //     // angular
+    //     //     .mock
+    //     //     .module({
+    //     //         'omdbApi' : {
+    //     //             search: function(query) {
+    //     //                 return movieData;
+    //     //             }
+    //     //         }
+    //     //     });
+    //
+    //     //anonymous service pattern via the $provide built-in
+    //     // which registers components with the $injector
+    //     // same as doing angular.module('my-module').factory(...)
+    //     // angular.mock
+    //     //     .module(function($provide) {
+    //     //         $provide.factory('omdbApi', function() {
+    //     //             return {
+    //     //                 search: function(query) {
+    //     //                     return movieData;
+    //     //                 }
+    //     //             }
+    //     //         })
+    //     //     });
+    //     var response;
+    //
+    //     var expectedUrl = 'http://www.omdbapi.com/?v=1&s=star%20wars';
+    //
+    //     $httpBackend
+    //         .when('GET', expectedUrl)
+    //         .respond(200, movieData);
+    //
+    //
+    //     // omdbApi.search('star wars')
+    //     //     .then(function(data) {
+    //     //         response = data;
+    //     //     });
+    //
+    //     console.log('doing search');
+    //     response = omdbApi.search('star wars');
+    //
+    //     $httpBackend.flush();
+    //
+    //     console.log('checking for data');
+    //     console.log(response);
+    //     expect(response).toEqual(movieData);
+    // });
 
-        //anonymous service pattern via the $provide built-in
-        // which registers components with the $injector
-        // same as doing angular.module('my-module').factory(...)
-        // angular.mock
-        //     .module(function($provide) {
-        //         $provide.factory('omdbApi', function() {
-        //             return {
-        //                 search: function(query) {
-        //                     return movieData;
-        //                 }
-        //             }
-        //         })
-        //     });
+    it('should return movie search data using q', function() {
         var response;
 
-        omdbApi.search('star wars episode iv')
+        var expectedUrl = 'http://www.omdbapi.com/?v=1&s=star%20wars';
+
+        $httpBackend
+            .when('GET', expectedUrl)
+            .respond(200, movieData);
+
+        console.log('doing searchUsingQ');
+        omdbApi.searchUsingQ('star wars')
             .then(function(data) {
                 response = data;
             });
 
+        $httpBackend.flush();
+
+        console.log('checking for data');
+        console.log(response);
         expect(response).toEqual(movieData);
     });
 
-    it('should return movie data by id', function() {
-        expect(omdbApi.find('tt0251413')).toEqual(movieDataById);
-    });
+
+    // it('should return movie data by id', function() {
+    //     var response;
+    //
+    //     var expectedUrl = 'http://www.omdbapi.com/?i=tt0251413&plot=short&r=json';
+    //
+    //     $httpBackend
+    //         .when('GET',)
+    //
+    //     expect(omdbApi.find('tt0251413')).toEqual(movieDataById);
+    // });
 });
